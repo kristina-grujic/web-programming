@@ -1,6 +1,7 @@
 var logOutURL = "../WebProg2015.Project/rest/session/logOut";
 var me;
 var comments;
+var allComments;
 var snippet;
 
 
@@ -95,7 +96,7 @@ $(function(){
 		$('#commentNumContainer').append('<h1>Commenting disabled</h1>');
 	}
     
-    
+    $("#sortbutton").click(onSort.bind(this));
 });
 
 
@@ -186,7 +187,7 @@ function loadComments() {
                 $('#commentNumContainer').append(
                     '<h1>' + data.length + ' comments</h1'
                 );
-				let allComments = sortComments(data, 'date');
+				allComments = sortComments(data, 'date');
                 $.each(allComments, function(index, element) {
                     showCommentOnPage(index, element);
                 });
@@ -198,7 +199,6 @@ function loadComments() {
 }
 
 function deleteComment(element) {
-	console.log(element)
 	var url = "rest/comments/" + element.id;
 	
 	$.ajax({ 
@@ -233,7 +233,6 @@ function deleteComment(element) {
 }
 
 function ratePositive(element) {
-	console.log(element)
 	var url = "rest/ratings/positive/" + element.id;
 	
 	$.ajax({ 
@@ -262,7 +261,6 @@ function ratePositive(element) {
 }
 
 function rateNegative(element) {
-	console.log(element)
 	var url = "rest/ratings/negative/" + element.id;
 	
 	$.ajax({ 
@@ -302,7 +300,6 @@ function showCommentOnPage(index, element){
 			});
 		}
 	}
-	console.log(element.createdAt);
 	$('#commentsContainer').append(
 		'<div class="oneEventDiv" id="comment'+ element.id +'">'+
 		'<img src="rest/users/image-by-username/' + (element.user && element.user.username)  + '/thumbnail"/>' +
@@ -342,11 +339,35 @@ function showCommentOnPage(index, element){
 }
 
 function sortComments(comments, type) {
-	return _.sortBy(comments, function(comment) {
+	comments = _.sortBy(comments, function(comment) {
 		if (type==='date') {
 			return moment(comment.createdAt);
 		} else {
-			return comment.rating;
+			let overallRating = 0;
+			overallRating += comment.rating.positive.length;
+			overallRating -= comment.rating.negative.length;
+			console.log(overallRating)
+			return overallRating;
 		}
+	});
+	if (type==='rate') {
+		comments = _.reverse(comments);
+	}
+	return comments;
+}
+
+function onSort() {
+	let type='rate'
+	if ($("#date").is(':checked')) {
+		type='date';
+	}
+	allComments = sortComments(allComments, type);
+	renderComments(allComments);
+}
+
+function renderComments(comments) {
+	$('#commentsContainer').empty();
+	$.each(comments, function(index, element) {
+		showCommentOnPage(index, element);
 	});
 }

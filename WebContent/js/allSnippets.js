@@ -37,7 +37,7 @@ $(function(){
 		loadSnippets($("#searchsnippet").val());
 	})
 	$("#filtersnippetbutton").click(function() {
-		let language = $("#languageName").val();
+		let language = $("#languageFilter").val();
 		let date = $("#datepicker").datepicker( "getDate" );
 		filterSnippets(language, date);
 	})
