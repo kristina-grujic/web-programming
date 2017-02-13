@@ -15,16 +15,36 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.StringTokenizer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import webProg2015.project.model.Person;
 import webProg2015.project.model.ProgrammingLanguage;
 import webProg2015.project.model.Snippet;
 
+class AutoDeleteSnippet extends TimerTask {
+
+    private final String id;
+
+
+    AutoDeleteSnippet ( String id )
+    {
+    	this.id = id;
+    }
+
+    public void run() {
+      SnippetDao.getInstance().removeSnippet(this.id);
+    }
+}
+
 public class SnippetDao {
 	private HashMap<String, Snippet> allSnippets = new HashMap<String, Snippet>();
 	private static SnippetDao instance = new SnippetDao();
 
+	private Timer timer;
+	
 	private SnippetDao() {
+		timer = new Timer(true);
 		BufferedReader in = null;
 		try {
 			File theDir = new File("./Data");
@@ -73,9 +93,10 @@ public class SnippetDao {
 	}
 	
 	public synchronized boolean addSnippet(Snippet u){
-		System.out.println(u.getId());
 		allSnippets.put(u.getId(), u);
 		if(saveSnippetsToFile()){
+
+			timer.schedule(new AutoDeleteSnippet(u.getId()), u.getLasts());
 			return true;
 		}else{
 			return false;

@@ -23,7 +23,7 @@ public class Snippet implements Serializable {
 	public Snippet() {
 		super();
 		this.createdAt = new Date();
-		this.lasts = 120;
+		this.lasts = 100000; // delete me in 100 seconds
 		this.commentsEnabled = true;
 	}
 	
@@ -35,7 +35,7 @@ public class Snippet implements Serializable {
 		this.language = language;
 		this.repository = repository;
 		this.user = person;
-		this.lasts = 120;
+		this.lasts = 100000; // delete me in 100 seconds
 		this.createdAt = createdAt;
 		this.commentsEnabled = commentsEnabled;
 	}
