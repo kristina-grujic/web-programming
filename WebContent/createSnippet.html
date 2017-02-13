@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Create snippet</title>
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>		
+		<script src="js/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="css/jquery.modal.css" type="text/css" media="screen" />
+		
+    	<script type="text/javascript" src="js/jquery-ui.js"></script> 
+        <script type="text/javascript" src="js/createSnippet.js"></script>
+	
+    	<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+		<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">  
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="css/createSnippet.css">
+        
+	</head>
+	
+	<body>
+            <form id="createForm">
+                <textarea id="description" class="form-control" placeholder="Description"/></textarea>
+                <br />
+                <textarea id="code" class="form-control" placeholder="Code"/></textarea>
+                <br />
+                <input id="repository" class="form-control" type="text" placeholder="Repository"/>
+                <br />
+
+                <select class="form-control" name="carlist" id="languageName">
+                </select>
+                <br />
+
+                <input class="btn btn-primary" type="submit" value="Create a snippet"/>
+            </form>
+
+	</body>
+</html>

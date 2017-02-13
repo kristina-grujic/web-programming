@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Ratings</title>
+		<script type="text/javascript" src="js/jquery.min.js"></script>		
+		<script type="text/javascript" src="js/modernizr.custom.63321.js"></script>
+		<script type="text/javascript" src="js/sweetalert.min.js"></script> 	
+		<script type="text/javascript" src="js/jquery.rateyo.js"></script>
+		<script type="text/javascript" src="js/userAllRatings.js"></script>	
+			
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+		<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">  
+		<link rel="stylesheet" type="text/css" href="css/jquery.rateyo.css"/>  
+        <link rel="stylesheet" type="text/css" href="css/userAllRatings.css">
+        
+	</head>
+	
+	<body>
+				
+	    <header>
+			<nav id="nav" class="rx">
+			  <ul id="main-menu" class="ln">
+			    <li >
+ 					<a href="userHomePage.html"><i class="fa fa-home"></i> Home</a>
+			    </li>
+			    <li>
+			      <a class="active" href="userAllRatings.html"><i class="fa fa-star-half-o"></i> Ratings </a>
+			    </li>
+			    <li>
+			      <a href="userAllEvents.html"><i class="fa fa-calendar"></i> Events </a>
+			    </li>
+			    <li style="float:right;">
+			      <a href="#" id="logOut"><i class="fa fa-sign-out"></i> Log Out </a>
+			    </li>
+			  </ul>
+			</nav>  
+		</header>
+		
+		<div class="page-body">
+		
+			<div class="page-headline">
+				<h1>All Ratings:</h1>
+				<hr/>
+			</div>	
+			
+			<div id="searchContainer">
+				<div class="searchBar"><label id="lblSearch" for="placeSearchField">
+				 Place: </label><input type="text" id="placeSearchField" placeholder="Enter Place name...."><label id="lblFrom" for="rating">
+				 Rating: </label><input type="text" id="rating"><button id="btnSearch">
+						Search </button>
+				</div>
+			</div>
+					
+			<div id="ratingsContainer">
+			
+			</div>
+			
+			<!-- The Modal Image -->
+			<div id="myModalImage" class="modalImage">
+				<span class="closeModImg">×</span>
+				<img class="modalImage-content" id="img01">
+				<div id="caption"></div>
+			</div>
+			
+		</div>	
+
+	</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>User Home Page</title>
+		<script type="text/javascript" src="js/jquery.min.js"></script>		
+		<script type="text/javascript" src="js/modernizr.custom.63321.js"></script>
+		<script type="text/javascript" src="js/sweetalert.min.js"></script> 	
+		<script type="text/javascript" src="js/jquery.rateyo.js"></script>
+		<script type="text/javascript" src="js/moment-with-locales.js"></script>
+		<script type="text/javascript" src="js/userHomePage.js"></script>	
+			
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+		<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery.rateyo.css"/>
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">    
+        <link rel="stylesheet" type="text/css" href="css/userHomePage.css">
+        
+	</head>
+	
+	<body>
+				
+	    <header>
+			<nav id="nav" class="rx">
+			  <ul id="main-menu" class="ln">
+			    <li >
+ 					<a class="active" href="userHomePage.html"><i class="fa fa-home"></i> Home</a>
+			    </li>
+			    <li>
+			      <a href="allSnippets.html"><i class="fa fa-star-half-o"></i> Snippets </a>
+			    </li>
+			    <li>
+			      <a href="allUsers.html"><i class="fa fa-calendar"></i> Users </a>
+			    </li>
+			    <li style="float:right;">
+			      <a href="#" id="logOut"><i class="fa fa-sign-out"></i> Log Out </a>
+			    </li>
+			  </ul>
+			</nav>  
+		</header>
+		
+		
+			<div class="profileContainer">
+			</div>
+			
+			<div id="map"></div>
+	
+			
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4tYr8JZwZSmmCclvrZrto8rlgHjLIwf0&libraries=places&callback=initMap"
+       		async defer></script>
+	</body>
+</html>
