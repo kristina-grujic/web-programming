@@ -3,6 +3,41 @@ var me;
 var comments;
 var snippet;
 
+
+function createComment(){
+	snippet = JSON.parse(localStorage.getItem('snippetView')|| '{}');
+	//grab all form data  
+	var formData = new FormData();
+	formData.append('text', $('#text').val());
+	var url = "rest/comments/" + snippet.id;
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: formData,
+		headers: {
+			Accept: "application/json"
+		},
+		async: false,
+		cache: false,
+		contentType: false,
+		processData: false,    
+		success: function (returndata) {
+			$('#commentNumContainer').empty();
+			comments = comments + 1;
+			$('#commentNumContainer').append(
+				'<h1>' + comments + ' comments</h1'
+			);
+			showCommentOnPage(0, returndata);
+			$('#text').val("");
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log("AJAX ERROR: " + errorThrown);
+			swal("Error", "There was an error while trying to reach server. Please, try again.", "error");
+		}
+	});
+}	
+
+
 $(function(){
  	$('#logOut').click(function(){
 		 localStorage.removeItem('myself');
@@ -32,42 +67,6 @@ $(function(){
 		}
 	}
 
-$("#createComment").click(function(){
-
-      snippet = JSON.parse(localStorage.getItem('snippetView')|| '{}');
-      //grab all form data  
-	  var formData = new FormData();
-      formData.append('text', $('#text').val());
-      var url = "rest/comments/" + snippet.id;
-	  $.ajax({
-	    url: url,
-	    type: 'POST',
-	    data: formData,
-		headers: {
-			Accept: "application/json"
-		},
-		async: false,
-		cache: false,
-		contentType: false,
-		processData: false,    
-	    success: function (returndata) {
-			$('#commentNumContainer').empty();
-			comments = comments + 1;
-			$('#commentNumContainer').append(
-				'<h1>' + comments + ' comments</h1'
-			);
-			showCommentOnPage(0, returndata);
-            $('#text').val("");
-	    },
-		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			console.log("AJAX ERROR: " + errorThrown);
-			swal("Error", "There was an error while trying to reach server. Please, try again.", "error");
-		}
-	  });
-	 
-	  return false;
-});
-
     snippet = JSON.parse(localStorage.getItem('snippetView')|| '{}');
     $('#snippetContainer').append(
 		'<div>'+
@@ -88,14 +87,18 @@ $("#createComment").click(function(){
 		loadComments();
 		$("#commentBox").append(
 			'<textarea id="text" placeholder="Type a comment"></textarea>' +
-            '<button id="createComment">Post</button>'
+            '<button id="createComment" >Post</button>'
 			)
+
+		$("#createComment").click(createComment.bind(this))
 	} else {
 		$('#commentNumContainer').append('<h1>Commenting disabled</h1>');
 	}
     
     
 });
+
+
 
 function disableComments() {
 	$.ajax({
@@ -149,8 +152,9 @@ function enableComments() {
 				loadComments();
 				$("#commentBox").append(
 				'<textarea id="text" placeholder="Type a comment"></textarea>' +
-				'<button id="createComment">Post</button>'
+				'<button id="createComment" >Post</button>'
 				)
+				$("#createComment").click(createComment.bind(this))
             },
 			error: function(error) {
 				swal("Error", "There was an error while trying to reach server. Please, try again.", "error");
@@ -182,7 +186,8 @@ function loadComments() {
                 $('#commentNumContainer').append(
                     '<h1>' + data.length + ' comments</h1'
                 );
-                $.each(data, function(index, element) {
+				let allComments = sortComments(data, 'date');
+                $.each(allComments, function(index, element) {
                     showCommentOnPage(index, element);
                 });
             },
@@ -297,10 +302,12 @@ function showCommentOnPage(index, element){
 			});
 		}
 	}
+	console.log(element.createdAt);
 	$('#commentsContainer').append(
 		'<div class="oneEventDiv" id="comment'+ element.id +'">'+
-            // '<img src="./Data/Images/Users/' + ((element.user && element.user.imageName) || "images/RateItMin.jpg") + '" />' +
-            '<p><small>' + ((element.user && element.user.username) || "Anonymous") + '</small></p>' +
+		'<img src="rest/users/image-by-username/' + (element.user && element.user.username)  + '/thumbnail"/>' +
+			'<p>' + ((element.user && element.user.username) || "Anonymous") + '</p>' +
+			'<p><small>' + moment(element.createdAt).fromNow() + '</small></p>' + 
 			'<p>' +  element.text + '</p>'+	
 			'<div class="ratings">' +
 				'<p><bold>Positive</bold>: ' + element.rating.positive.length + '</p>' +
@@ -334,4 +341,12 @@ function showCommentOnPage(index, element){
 	$('#'+element.id).click(deleteComment.bind(this,element))
 }
 
-
+function sortComments(comments, type) {
+	return _.sortBy(comments, function(comment) {
+		if (type==='date') {
+			return moment(comment.createdAt);
+		} else {
+			return comment.rating;
+		}
+	});
+}

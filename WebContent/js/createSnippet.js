@@ -24,7 +24,7 @@ function loadLanguages(){
 	        $.each(data, function(index, element) {
 	        	$('#languageName').append(
 					'<option value="'+ element.name +
-					'">' + element.name + '</option'
+					'">' + element.name + '</option>'
 				);
 	        });
 			

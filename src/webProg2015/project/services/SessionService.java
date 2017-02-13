@@ -39,7 +39,7 @@ public class SessionService {
 		
 		Person u = uDao.getUser(p.getUsername());
 		if(u!=null){
-			if(BCrypt.checkpw(p.getPassword(), u.getPassword())){
+			if(BCrypt.checkpw(p.getPassword(), u.getPassword()) && !u.getBlocked()){
 				success = true;
 				
 				output = u.getRole();

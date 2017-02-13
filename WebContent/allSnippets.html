@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Events</title>
+		<title>Snippets</title>
 
 		
 		
@@ -14,12 +14,15 @@
 		<script type="text/javascript" src="js/moment-with-locales.js"></script>
 		<script type="text/javascript" src="js/jquery-ui.js"></script> 
 		<script type="text/javascript" src="js/allSnippets.js"></script>	
+		<script type="text/javascript" src="js/lodash.js"></script>
+			
 			
 		<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
 		<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 		<link rel="stylesheet" type="text/css" href="css/normalize.css">  
 		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">  
         <link rel="stylesheet" type="text/css" href="css/userAllEvents.css">
+        <link rel="stylesheet" type="text/css" href="css/createSnippet.css">
         
 	</head>
 	
@@ -46,11 +49,18 @@
 		
 		<div class="page-body">
 		
-			<div class="page-headline">
-				<h1>All Snippets:	</h1>
-				<hr/>
-			</div>	
+			<div>
+				<input type='text' class='form-control' id="searchsnippet" placeholder="Search snippets by description"></input>
+				<button class="btn" id="searchsnippetbutton">Search</input>
+			</div>
 
+			<div>
+				<select class="form-control" name="carlist" id="languageName">
+					<option value='all'>Programming language</option>
+				</select>
+				<input  class='form-control' placeholder="Choose date" type="text" id="datepicker"></input>
+				<button class="btn" id="filtersnippetbutton">Filter</input>
+			</div>
 			<div id="actions">
 			</div>
 					
